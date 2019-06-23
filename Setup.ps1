@@ -1,10 +1,4 @@
 
-# Ask for elevated permissions if required
-If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
-    Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
-    Exit
-}
-
 ## Change power plan to high performance
 $guid = [guid]::NewGuid()
 powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61 $guid
@@ -197,11 +191,54 @@ Get-AppxPackage "Microsoft.CommsPhone" | Remove-AppxPackage
 Get-AppxPackage "9E2F88E3.Twitter" | Remove-AppxPackage
 Get-AppxPackage "king.com.CandyCrushSodaSaga" | Remove-AppxPackage
 
-##########
-# Restart
-##########
-Write-Host
-Write-Host "Press any key to restart your system..." -ForegroundColor Black -BackgroundColor White
-$key = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-Write-Host "Restarting..."
-Restart-Computer
+###################### Nininte install #############################
+# Edit the URL using the URL paths listed above.
+# EX: to download Firefox, Chrome, and 7-Zip change the URL to "https://ninite.com/chrome-firefox-7zip/ninite.exe"
+$url = "https://ninite.com/chrome-java8-.net4.8-silverlight-air-shockwave-notepadplusplus-jdk8-paint.net-cutepdf-pdfcreator-avast-vlc-klitecodecs-7zip-winrar--teamviewer13/ninite.exe"
+$output = "C:\Scripts\ninite.exe"
+ 
+# Creates Scripts directory in the root of C:
+New-Item C:\Scripts\ -ItemType Directory
+ 
+# Calls upon Ninite URL to grab .exe
+Invoke-WebRequest -Uri $url -OutFile $output
+ 
+# Starts Ninite.exe
+Start-Process -FilePath "C:\Scripts\ninite.exe"
+
+
+
+# Silent install Adobe Reader DC
+# https://get.adobe.com/nl/reader/enterprise/
+
+# Path for the workdir
+$workdir = "c:\installer\"
+
+# Check if work directory exists if not create it
+
+If (Test-Path -Path $workdir -PathType Container)
+{ Write-Host "$workdir already exists" -ForegroundColor Red}
+ELSE
+{ New-Item -Path $workdir  -ItemType directory }
+
+# Download the installer
+
+$source = "http://ardownload.adobe.com/pub/adobe/reader/win/AcrobatDC/1502320053/AcroRdrDC1502320053_en_US.exe"
+$destination = "$workdir\adobeDC.exe"
+Invoke-WebRequest $source -OutFile $destination
+
+# Start the installation
+
+Start-Process -FilePath "$workdir\adobeDC.exe" -ArgumentList "/sPB /rs"
+
+# Wait XX Seconds for the installation to finish
+
+Start-Sleep -s 35
+
+# Remove the installer
+
+rm -Force $workdir\adobe*
+
+
+
+Write-Host "Please restart after everything is completed" 
