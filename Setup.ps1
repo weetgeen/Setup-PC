@@ -206,7 +206,9 @@ Invoke-WebRequest -Uri $url -OutFile $output
 # Starts Ninite.exe
 Start-Process -FilePath "C:\Scripts\ninite.exe"
 
+# Wait XX Seconds for the installation to finish
 
+Start-Sleep -s 3000
 
 # Silent install Adobe Reader DC
 # https://get.adobe.com/nl/reader/enterprise/
