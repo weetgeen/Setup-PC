@@ -191,24 +191,6 @@ Get-AppxPackage "Microsoft.CommsPhone" | Remove-AppxPackage
 Get-AppxPackage "9E2F88E3.Twitter" | Remove-AppxPackage
 Get-AppxPackage "king.com.CandyCrushSodaSaga" | Remove-AppxPackage
 
-###################### Nininte install #############################
-# Edit the URL using the URL paths listed above.
-# EX: to download Firefox, Chrome, and 7-Zip change the URL to "https://ninite.com/chrome-firefox-7zip/ninite.exe"
-$url = "https://ninite.com/chrome-java8-.net4.8-silverlight-air-shockwave-notepadplusplus-jdk8-paint.net-cutepdf-pdfcreator-avast-vlc-klitecodecs-7zip-winrar--teamviewer13/ninite.exe"
-$output = "C:\Scripts\ninite.exe"
- 
-# Creates Scripts directory in the root of C:
-New-Item C:\Scripts\ -ItemType Directory
- 
-# Calls upon Ninite URL to grab .exe
-Invoke-WebRequest -Uri $url -OutFile $output
- 
-# Starts Ninite.exe
-Start-Process -FilePath "C:\Scripts\ninite.exe"
-
-# Wait XX Seconds for the installation to finish
-
-Start-Sleep -s 3000
 
 # Silent install Adobe Reader DC
 # https://get.adobe.com/nl/reader/enterprise/
@@ -241,6 +223,23 @@ Start-Sleep -s 35
 
 rm -Force $workdir\adobe*
 
+###################### Nininte install #############################
+# Edit the URL using the URL paths listed above.
+# EX: to download Firefox, Chrome, and 7-Zip change the URL to "https://ninite.com/chrome-firefox-7zip/ninite.exe"
+$url = "https://ninite.com/chrome-java8-.net4.8-silverlight-air-shockwave-notepadplusplus-jdk8-paint.net-cutepdf-pdfcreator-avast-vlc-klitecodecs-7zip-winrar--teamviewer13/ninite.exe"
+$output = "C:\Scripts\ninite.exe"
+ 
+# Creates Scripts directory in the root of C:
+New-Item C:\Scripts\ -ItemType Directory
+ 
+# Calls upon Ninite URL to grab .exe
+Invoke-WebRequest -Uri $url -OutFile $output
+ 
+# Starts Ninite.exe
+Start-Process -FilePath "C:\Scripts\ninite.exe"
 
+# Wait XX Seconds for the installation to finish
+
+Start-Sleep -s 3000
 
 Write-Host "Please restart after everything is completed" 
