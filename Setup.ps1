@@ -192,6 +192,10 @@ Get-AppxPackage "9E2F88E3.Twitter" | Remove-AppxPackage
 Get-AppxPackage "king.com.CandyCrushSodaSaga" | Remove-AppxPackage
 
 
+# Install windows Photos app
+Get-AppxPackage -allusers Microsoft.Windows.Photos | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+
+
 # Silent install Adobe Reader DC
 # https://get.adobe.com/nl/reader/enterprise/
 
