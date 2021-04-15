@@ -241,9 +241,21 @@ Invoke-WebRequest -Uri $url -OutFile $output
  
 # Starts Ninite.exe
 Start-Process -FilePath "C:\Scripts\ninite.exe"
-
 # Wait XX Seconds for the installation to finish
-
 Start-Sleep -s 3000
 
-Write-Host "Please restart after everything is completed" 
+
+########################
+#Datema Software
+########################
+
+#Chartplanner
+$url = "https://chartplanner.datema.nl/ChartplannerReleases/setup.exe"
+$output = "C:\Scripts\chartplanner.exe"
+Invoke-WebRequest -Uri $url -OutFile $output
+Start-Process -FilePath "C:\Scripts\chartplanner.exe"
+Start-Sleep -s 3000
+
+
+
+
