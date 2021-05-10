@@ -196,37 +196,6 @@ Get-AppxPackage "king.com.CandyCrushSodaSaga" | Remove-AppxPackage
 Get-AppxPackage -allusers Microsoft.Windows.Photos | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 
 
-# Silent install Adobe Reader DC
-# https://get.adobe.com/nl/reader/enterprise/
-
-# Path for the workdir
-$workdir = "c:\installer\"
-
-# Check if work directory exists if not create it
-
-If (Test-Path -Path $workdir -PathType Container)
-{ Write-Host "$workdir already exists" -ForegroundColor Red}
-ELSE
-{ New-Item -Path $workdir  -ItemType directory }
-
-# Download the installer
-
-$source = "http://ardownload.adobe.com/pub/adobe/reader/win/AcrobatDC/1502320053/AcroRdrDC1502320053_en_US.exe"
-$destination = "$workdir\adobeDC.exe"
-Invoke-WebRequest $source -OutFile $destination
-
-# Start the installation
-
-Start-Process -FilePath "$workdir\adobeDC.exe" -ArgumentList "/sPB /rs"
-
-# Wait XX Seconds for the installation to finish
-
-Start-Sleep -s 35
-
-# Remove the installer
-
-rm -Force $workdir\adobe*
-
 ###################### Nininte install #############################
 # Edit the URL using the URL paths listed above.
 # EX: to download Firefox, Chrome, and 7-Zip change the URL to "https://ninite.com/chrome-firefox-7zip/ninite.exe"
@@ -242,7 +211,7 @@ Invoke-WebRequest -Uri $url -OutFile $output
 # Starts Ninite.exe
 Start-Process -FilePath "C:\Scripts\ninite.exe"
 # Wait XX Seconds for the installation to finish
-Start-Sleep -s 3000
+Start-Sleep -s 900
 
 
 ########################
@@ -253,9 +222,64 @@ Start-Sleep -s 3000
 $url = "https://chartplanner.datema.nl/ChartplannerReleases/setup.exe"
 $output = "C:\Scripts\chartplanner.exe"
 Invoke-WebRequest -Uri $url -OutFile $output
-Start-Process -FilePath "C:\Scripts\chartplanner.exe"
-Start-Sleep -s 3000
+Start-Process -FilePath "C:\Scripts\chartplanner.exe" /S -NoNewWindow -Wait -PassThru
+Start-Sleep -s 900
+
+
+#ADP
+$url = "https://hp-iot.nl/software/ADP_V19.zip"
+$output = "C:\Scripts\software.zip"
+Invoke-WebRequest -Uri $url -OutFile $output
+Expand-Archive -Path "C:\Scripts\software.zip" -DestinationPath "C:\Scripts"
+Start-Process -FilePath "C:\Scripts\ISSetup.exe" /S -NoNewWindow -Wait -PassThru
+Start-Sleep -s 900
+
+
+#e-NP
+$url = "https://hp-iot.nl/software/e-np.zip"
+$output = "C:\Scripts\software.zip"
+Invoke-WebRequest -Uri $url -OutFile $output
+Expand-Archive -Path "C:\Scripts\software.zip" -DestinationPath "C:\Scripts"
+Start-Process -FilePath "C:\Scripts\e-NP_Reader_1.4.exe" /S -NoNewWindow -Wait -PassThru
+Start-Sleep -s 900
+
+
+########################
+#Standard Software on each PS PC
+########################
+
+#.NET472
+$url = "https://hp-iot.nl/software/NET472.exe"
+$output = "C:\Scripts\software.exe"
+Invoke-WebRequest -Uri $url -OutFile $output
+Start-Process -FilePath "C:\Scripts\software.exe" /S -NoNewWindow -Wait -PassThru
+Start-Sleep -s 900
+
+
+#Free File Sync
+$url = "https://hp-iot.nl/software/freefilesync.exe"
+$output = "C:\Scripts\software.exe"
+Invoke-WebRequest -Uri $url -OutFile $output
+Start-Process -FilePath "C:\Scripts\software.exe" /S -NoNewWindow -Wait -PassThru
+Start-Sleep -s 900
+
+#Adobe Reader
+$url = "https://hp-iot.nl/software/adobe.exe"
+$output = "C:\Scripts\software.exe"
+Invoke-WebRequest -Uri $url -OutFile $output
+Start-Process -FilePath "C:\Scripts\software.exe" /S -NoNewWindow -Wait -PassThru
+Start-Sleep -s 900
+
+
+#Marad Prerequisite
+$url = "https://hp-iot.nl/software/MaradPrerequisites.zip"
+$output = "C:\Scripts\software.zip"
+Invoke-WebRequest -Uri $url -OutFile $output
+Expand-Archive -Path "C:\Scripts\software.zip" -DestinationPath "C:\Scripts"
+Start-Process -FilePath "C:\Scripts\install.exe" /S -NoNewWindow -Wait -PassThru
+Start-Sleep -s 900
 
 
 
+rm -Force C:\Scripts\*
 
