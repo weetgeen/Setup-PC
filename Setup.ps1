@@ -4,6 +4,10 @@ $guid = [guid]::NewGuid()
 powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61 $guid
 powercfg /setactive $guid
 
+#Change Language to English
+Add-WindowsPackage -Online -PackagePath .\lp_en.cab
+$ll = New-WinUserLanguageList -Language en-US
+Set-WinUserLanguageList $ll -Force
 
 ## Change date and time format
 $culture = Get-Culture
@@ -16,6 +20,11 @@ $culture.DateTimeFormat.FirstDayOfWeek = 'Monday'
 $culture.DateTimeFormat.LongTimePattern = 'HH:mm:ss'
 $culture.DateTimeFormat.ShortTimePattern = 'HH:mm'
 Set-Culture $culture
+
+
+
+
+
 
 
 # Disable Telemetry
