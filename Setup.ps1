@@ -85,6 +85,11 @@ Stop-Service "DiagTrack"
 Set-Service "DiagTrack" -StartupType Disabled
 
 
+#Disable Cortana
+Get-AppxPackage -allusers Microsoft.549981C3F5F10 | Remove-AppxPackage
+
+
+
 ##########
 # UI Tweaks
 ##########
