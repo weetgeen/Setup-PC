@@ -225,21 +225,21 @@ else {
     Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 }
 
-choco install adobereader
-choco install 7zip
-choco install adobereader
-choco install dotnetfx
-choco install freefilesync
-choco install GoogleChrome
-choco install jre8
-choco install microsoft-windows-terminal
-choco install notepadplusplus.install
-choco install Office365Business
-choco install powertoys
-choco install sumatrapdf
-choco install teracopy
-choco install vlc
-choco install avastfreeantivirus
+choco install adobereader -y
+choco install 7zip -y
+choco install adobereader -y
+choco install dotnetfx -y
+choco install freefilesync -y 
+choco install GoogleChrome -y
+choco install jre8 -y
+choco install microsoft-windows-terminal -y
+choco install notepadplusplus.install -y
+choco install Office365Business -y
+choco install powertoys -y
+choco install sumatrapdf -y
+choco install teracopy -y
+choco install vlc -y
+choco install avastfreeantivirus -y
 
 
 
