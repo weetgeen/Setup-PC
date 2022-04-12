@@ -210,22 +210,37 @@ Get-AppxPackage "king.com.CandyCrushSodaSaga" | Remove-AppxPackage
 Get-AppxPackage -allusers Microsoft.Windows.Photos | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 
 
-###################### Nininte install #############################
-# Edit the URL using the URL paths listed above.
-# EX: to download Firefox, Chrome, and 7-Zip change the URL to "https://ninite.com/chrome-firefox-7zip/ninite.exe"
-$url = "https://ninite.com/chrome-java8-.net4.8-silverlight-air-shockwave-notepadplusplus-jdk8-paint.net-cutepdf-pdfcreator-avast-vlc-klitecodecs-7zip-winrar--teamviewer13/ninite.exe"
-$output = "C:\Scripts\ninite.exe"
- 
-# Creates Scripts directory in the root of C:
-New-Item C:\Scripts\ -ItemType Directory
- 
-# Calls upon Ninite URL to grab .exe
-Invoke-WebRequest -Uri $url -OutFile $output
- 
-# Starts Ninite.exe
-Start-Process -FilePath "C:\Scripts\ninite.exe"
-# Wait XX Seconds for the installation to finish
-Start-Sleep -s 900
+
+########################
+#Chocolatey packages   #
+########################
+
+
+# Ensure chocolatey installed
+if ([bool](Get-Command -Name 'choco' -ErrorAction SilentlyContinue)) {
+    Write-Verbose "Chocolatey is already installed, skip installation." -Verbose
+}
+else {
+    Write-Verbose "Installing Chocolatey..." -Verbose
+    Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+}
+
+choco install adobereader
+choco install 7zip
+choco install adobereader
+choco install dotnetfx
+choco install freefilesync
+choco install GoogleChrome
+choco install jre8
+choco install microsoft-windows-terminal
+choco install notepadplusplus.install
+choco install Office365Business
+choco install powertoys
+choco install sumatrapdf
+choco install teracopy
+choco install vlc
+choco install avastfreeantivirus
+
 
 
 ########################
@@ -297,3 +312,7 @@ Start-Sleep -s 900
 
 rm -Force C:\Scripts\*
 
+
+
+#Clean desktop
+Remove-Item 'C:\Users\*\Desktop\*'
