@@ -22,8 +22,30 @@ $culture.DateTimeFormat.ShortTimePattern = 'HH:mm'
 Set-Culture $culture
 
 
+# Set Start menu to left
+Write-Host "Setting Start Menu to left..."
+If (!(Test-Path "HKCU:\\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced")) 
+{
+  New-Item -Path "HKCU:\\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" | Out-Null
+}
+Set-ItemProperty -Path "HKCU:\\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarAl" -Type DWord -Value 0
+
+#Remove Chat Icon from Task Bar
+Write-Host "Removing Chat Icon from Taskbar..."
+If (!(Test-Path "HKCU:\\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced")) 
+{
+  New-Item -Path "HKCU:\\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" | Out-Null
+}
+Set-ItemProperty -Path "HKCU:\\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarMn" -Type DWord -Value 0
 
 
+#Remove Widget Icon from Task Bar
+Write-Host "Remove Widget Icon from Task Bar..."
+If (!(Test-Path "HKLM:\\SOFTWARE\Policies\Microsoft\Dsh")) 
+{
+  New-Item -Path "HKLM:\\SOFTWARE\Policies\Microsoft\Dsh" | Out-Null
+}
+Set-ItemProperty -Path "HKLM:\\SOFTWARE\Policies\Microsoft\Dsh" -Name "AllowNewsAndInterests" -Type DWord -Value 0
 
 
 
@@ -174,6 +196,10 @@ If (!(Test-Path "HKCR:"))
 Remove-Item -Path "HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
 Remove-Item -Path "HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
  
+ # Install windows Photos app
+Get-AppxPackage -allusers Microsoft.Windows.Photos | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+
+ 
 # Uninstall default Microsoft applications
 Write-Host "Uninstalling default Microsoft applications..."
 Get-AppxPackage "Microsoft.3DBuilder" | Remove-AppxPackage
@@ -216,9 +242,8 @@ Get-AppxPackage Microsoft.XboxSpeechToTextOverlay | Remove-AppxPackage
 Get-AppxPackage Microsoft.XboxGameOverlay | Remove-AppxPackage
 Get-AppxPackage Microsoft.Xbox.TCUI | Remove-AppxPackage
 Get-AppxPackage Microsoft.OneDriveSync | Remove-AppxPackage
+Get-AppxPackage "MicrosoftWindows.Client.WebExperience" | Remove-AppxPackage
 
-# Install windows Photos app
-Get-AppxPackage -allusers Microsoft.Windows.Photos | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 
 
 
