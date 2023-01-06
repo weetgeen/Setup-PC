@@ -341,5 +341,5 @@ rm -Force C:\Scripts\*
 Remove-Item 'C:\Users\*\Desktop\*'
 
 
-Install-Module PSWindowsUpdate
+Install-Module PSWindowsUpdate -AcceptAll
 Get-WindowsUpdate -AcceptAll -Install -AutoReboot
