@@ -288,8 +288,6 @@ $url = "https://chartplanner.datema.nl/ChartplannerReleases/setup.exe"
 $output = "C:\Scripts\chartplanner.exe"
 Invoke-WebRequest -Uri $url -OutFile $output
 Start-Process -FilePath "C:\Scripts\chartplanner.exe" /S -NoNewWindow -Wait -PassThru
-Start-Sleep -s 900
-
 
 #ADP
 $url = "https://hp-iot.nl/software/ADP_V19.zip"
@@ -297,8 +295,6 @@ $output = "C:\Scripts\software.zip"
 Invoke-WebRequest -Uri $url -OutFile $output
 Expand-Archive -Path "C:\Scripts\software.zip" -DestinationPath "C:\Scripts"
 Start-Process -FilePath "C:\Scripts\ISSetup.exe" /S -NoNewWindow -Wait -PassThru
-Start-Sleep -s 900
-
 
 #e-NP
 $url = "https://hp-iot.nl/software/e-np.zip"
@@ -306,45 +302,22 @@ $output = "C:\Scripts\software.zip"
 Invoke-WebRequest -Uri $url -OutFile $output
 Expand-Archive -Path "C:\Scripts\software.zip" -DestinationPath "C:\Scripts"
 Start-Process -FilePath "C:\Scripts\e-NP_Reader_1.4.exe" /S -NoNewWindow -Wait -PassThru
-Start-Sleep -s 900
 
 
 ########################
 #Standard Software on each PS PC
 ########################
 
-#.NET472
-$url = "https://hp-iot.nl/software/NET472.exe"
-$output = "C:\Scripts\software.exe"
-Invoke-WebRequest -Uri $url -OutFile $output
-Start-Process -FilePath "C:\Scripts\software.exe" /S -NoNewWindow -Wait -PassThru
-Start-Sleep -s 900
-
-
-#Free File Sync
-$url = "https://hp-iot.nl/software/freefilesync.exe"
-$output = "C:\Scripts\software.exe"
-Invoke-WebRequest -Uri $url -OutFile $output
-Start-Process -FilePath "C:\Scripts\software.exe" /S -NoNewWindow -Wait -PassThru
-Start-Sleep -s 900
-
-#Adobe Reader
-$url = "https://hp-iot.nl/software/adobe.exe"
-$output = "C:\Scripts\software.exe"
-Invoke-WebRequest -Uri $url -OutFile $output
-Start-Process -FilePath "C:\Scripts\software.exe" /S -NoNewWindow -Wait -PassThru
-Start-Sleep -s 900
-
 
 #Marad Prerequisite
-$url = "https://hp-iot.nl/software/MaradPrerequisites.zip"
+$url = "https://hp-iot.nl/software/MaradPrerequisites-2022.zip"
 $output = "C:\Scripts\software.zip"
 Invoke-WebRequest -Uri $url -OutFile $output
 Expand-Archive -Path "C:\Scripts\software.zip" -DestinationPath "C:\Scripts"
 Start-Process -FilePath "C:\Scripts\install.exe" /S -NoNewWindow -Wait -PassThru
 Start-Sleep -s 900
 
-
+Start-Process -FilePath "https://hp-iot.nl/software/MaradEmptyInstallation.exe" /S -NoNewWindow -Wait -PassThru
 
 rm -Force C:\Scripts\*
 
@@ -352,3 +325,7 @@ rm -Force C:\Scripts\*
 
 #Clean desktop
 Remove-Item 'C:\Users\*\Desktop\*'
+
+
+Install-Module PSWindowsUpdate
+Get-WindowsUpdate -AcceptAll -Install -AutoReboot
