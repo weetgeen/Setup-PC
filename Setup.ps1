@@ -204,7 +204,18 @@ Get-AppxPackage "Microsoft.Messaging" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.CommsPhone" | Remove-AppxPackage
 Get-AppxPackage "9E2F88E3.Twitter" | Remove-AppxPackage
 Get-AppxPackage "king.com.CandyCrushSodaSaga" | Remove-AppxPackage
-
+Get-AppxPackage Microsoft.WindowsStore | Remove-AppxPackage
+Get-AppxPackage MicrosoftTeams | Remove-AppxPackage
+Get-AppxPackage Microsoft.GamingApp | Remove-AppxPackage
+Get-AppxPackage Microsoft.YourPhone | Remove-AppxPackage
+Get-AppxPackage Microsoft.XboxGamingOverlay | Remove-AppxPackage
+Get-AppxPackage Microsoft.XboxIdentityProvider | Remove-AppxPackage
+Get-AppxPackage Microsoft.StorePurchaseApp | Remove-AppxPackage
+Get-AppxPackage Microsoft.WindowsFeedbackHub | Remove-AppxPackage
+Get-AppxPackage Microsoft.XboxSpeechToTextOverlay | Remove-AppxPackage
+Get-AppxPackage Microsoft.XboxGameOverlay | Remove-AppxPackage
+Get-AppxPackage Microsoft.Xbox.TCUI | Remove-AppxPackage
+Get-AppxPackage Microsoft.OneDriveSync | Remove-AppxPackage
 
 # Install windows Photos app
 Get-AppxPackage -allusers Microsoft.Windows.Photos | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
