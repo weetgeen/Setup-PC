@@ -280,6 +280,20 @@ choco install avastfreeantivirus -y
 
 
 ########################
+#Set Wallpaper
+########################
+
+if (-not (Test-Path "C:\Scripts")) {
+    New-Item -ItemType Directory -Path "C:\Scripts"
+}
+
+$imageUrl = "https://hp-iot.nl/promotiemateriaal/Pot%20logo%20kleur.png"
+$localFile = "C:\Scripts\wallpaper.png"
+Invoke-WebRequest -Uri $imageUrl -OutFile $localFile
+Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop\' -Name Wallpaper -Value $localFile
+
+
+########################
 #Datema Software
 ########################
 
