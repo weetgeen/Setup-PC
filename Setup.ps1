@@ -291,6 +291,13 @@ $imageUrl = "https://hp-iot.nl/promotiemateriaal/Pot%20logo%20kleur.png"
 $localFile = "C:\Scripts\wallpaper.png"
 Invoke-WebRequest -Uri $imageUrl -OutFile $localFile
 Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop\' -Name Wallpaper -Value $localFile
+#Center Background
+Set-ItemProperty -path 'HKCU:\Control Panel\Desktop\' -name TileWallpaper -value "0"
+Set-ItemProperty -path 'HKCU:\Control Panel\Desktop\' -name WallpaperStyle -value "0" -Force
+#Refresh Background
+RUNDLL32.EXE USER32.DLL,UpdatePerUserSystemParameters 1, True
+
+
 
 
 ########################
