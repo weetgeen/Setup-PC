@@ -1,3 +1,5 @@
+# Change the execution policy to RemoteSigned
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 
 ## Change power plan to high performance
 $guid = [guid]::NewGuid()
@@ -5,9 +7,8 @@ powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61 $guid
 powercfg /setactive $guid
 
 #Change Language to English
-Add-WindowsPackage -Online -PackagePath .\lp_en.cab
-$ll = New-WinUserLanguageList -Language en-US
-Set-WinUserLanguageList $ll -Force
+Set-WinSystemLocale en-US
+Set-WinUserLanguageList en-US -Force
 
 ## Change date and time format
 $culture = Get-Culture
@@ -348,5 +349,8 @@ rm -Force C:\Scripts\*
 Remove-Item 'C:\Users\*\Desktop\*'
 
 
-Install-Module PSWindowsUpdate -AcceptAll
+# Import the PSWindowsUpdate module
+Import-Module PSWindowsUpdate
+
+# Check for Windows updates, accept all, install them, and auto-reboot if necessary
 Get-WindowsUpdate -AcceptAll -Install -AutoReboot
