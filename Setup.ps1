@@ -350,7 +350,7 @@ Remove-Item 'C:\Users\*\Desktop\*'
 
 
 # Import the PSWindowsUpdate module
-Import-Module PSWindowsUpdate
+Find-Module -Name PSWindowsUpdate | Install-Module
 
 # Check for Windows updates, accept all, install them, and auto-reboot if necessary
 Get-WindowsUpdate -AcceptAll -Install -AutoReboot
